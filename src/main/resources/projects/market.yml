@@ -1,0 +1,271 @@
+medieval_market_chair:
+    name: "§fMarket Chair"
+    category: market
+    item: ia.lzfurniture:medieval_market_chair
+    hits:
+        - whittle.3
+        - engrave.2
+    recipe:
+        - valewood.1
+medieval_market_bench:
+    name: "§fMarket Bench"
+    category: market
+    item: ia.lzfurniture:medieval_market_bench
+    hits:
+        - whittle.6
+        - engrave.3
+    recipe:
+        - valewood.2
+medieval_market_bed:
+    name: "§fMarket Bed"
+    category: market
+    item: ia.lzfurniture:medieval_market_bed
+    hits:
+        - whittle.6
+        - engrave.3
+    recipe:
+        - valewood.2
+        - silk.1
+medieval_market_stalltable:
+    name: "§fMarket Stall Table"
+    category: market
+    item: ia.lzfurniture:medieval_market_stalltable
+    hits:
+        - whittle.4
+        - engrave.2
+    recipe:
+        - valewood.2
+medieval_market_scarecrow:
+    name: "§fMarket Scarecrow"
+    category: market
+    item: ia.lzfurniture:medieval_market_scarecrow
+    hits:
+        - whittle.3
+        - engrave.2
+    recipe:
+        - valewood.2
+        - silk.1
+medieval_market_campfire:
+    name: "§fMarket Campfire"
+    category: market
+    item: ia.lzfurniture:medieval_market_campfire
+    hits:
+        - whittle.4
+    recipe:
+        - valewood.1
+medieval_market_chest:
+    name: "§fMarket Chest"
+    category: market
+    item: ia.lzfurniture:medieval_market_chest
+    hits:
+        - whittle.3
+        - engrave.3
+    recipe:
+        - runebark.1
+medieval_market_direction_sign:
+    name: "§fMarket Sign"
+    category: market
+    item: ia.lzfurniture:medieval_market_direction_sign
+    hits:
+        - whittle.2
+        - engrave.3
+    recipe:
+        - valewood.2
+medieval_market_hangingpot:
+    name: "§fMarket Hanging Pot"
+    category: market
+    item: ia.lzfurniture:medieval_market_hangingpot
+    hits:
+        - hit.3
+        - small_hit.1
+    recipe:
+        - runebark.2
+medieval_market_haybales:
+    name: "§fMarket Haybales"
+    category: market
+    item: ia.lzfurniture:medieval_market_haybales
+    hits:
+        - whittle.1
+        - engrave.1
+    recipe:
+        - silk.1
+medieval_market_lantern:
+    name: "§fMarket Lantern"
+    category: market
+    item: ia.lzfurniture:medieval_market_lantern
+    hits:
+        - whittle.2
+        - engrave.3
+        - hit.1
+    recipe:
+        - valewood.1
+        - runebark.1
+medieval_market_marketstall_red:
+    name: "§fMarket Stall Red"
+    category: market
+    item: ia.lzfurniture:medieval_market_marketstall_red
+    hits:
+        - whittle.6
+        - engrave.3
+    recipe:
+        - valewood.2
+        - silk.1
+medieval_market_marketstall_purple:
+    name: "§fMarket Stall Purple"
+    category: market
+    item: ia.lzfurniture:medieval_market_marketstall_purple
+    hits:
+        - whittle.6
+        - engrave.3
+    recipe:
+        - valewood.2
+        - silk.1
+medieval_market_open_chest:
+    name: "§fMarket Chest Open"
+    category: market
+    item: ia.lzfurniture:medieval_market_open_chest
+    hits:
+        - whittle.3
+        - engrave.3
+    recipe:
+        - runebark.1
+medieval_market_pot:
+    name: "§fMarket Pot"
+    category: market
+    item: ia.lzfurniture:medieval_market_pot
+    hits:
+        - hit.4
+        - small_hit.1
+    recipe:
+        - runebark.1
+medieval_market_box:
+    name: "§fMarket Box"
+    category: market
+    item: ia.lzfurniture:medieval_market_box
+    hits:
+        - whittle.2
+        - engrave.1
+    recipe:
+        - valewood.1
+medieval_market_box_apples:
+    name: "§fMarket Box with Apples"
+    category: market
+    item: ia.lzfurniture:medieval_market_box_apples
+    hits:
+        - whittle.2
+        - engrave.1
+    recipe:
+        - valewood.1
+medieval_market_box_bread:
+    name: "§fMarket Box with Bread"
+    category: market
+    item: ia.lzfurniture:medieval_market_box_bread
+    hits:
+        - whittle.2
+        - engrave.1
+    recipe:
+        - valewood.1
+medieval_market_barell:
+    name: "§fMarket Barrel"
+    category: market
+    item: ia.lzfurniture:medieval_market_barell
+    hits:
+        - whittle.3
+        - engrave.3
+    recipe:
+        - valewood.1
+medieval_market_bath:
+    name: "§fMarket Bath"
+    category: market
+    item: ia.lzfurniture:medieval_market_bath
+    hits:
+        - whittle.4
+        - engrave.3
+    recipe:
+        - valewood.2
+medieval_market_bag:
+    name: "§fMarket Bag"
+    category: market
+    item: ia.lzfurniture:medieval_market_bag
+    hits:
+        - whittle.1
+    recipe:
+        - silk.1
+medieval_market_stool:
+    name: "§fMarket Stool"
+    category: market
+    item: ia.lzfurniture:medieval_market_stool
+    hits:
+        - whittle.2
+        - engrave.1
+    recipe:
+        - valewood.1
+medieval_market_table:
+    name: "§fMarket Table"
+    category: market
+    item: ia.lzfurniture:medieval_market_table
+    hits:
+        - whittle.4
+        - engrave.1
+    recipe:
+        - valewood.2
+medieval_market_wagon_red:
+    name: "§fMarket Wagon Red"
+    category: market
+    item: ia.lzfurniture:medieval_market_wagon_red
+    hits:
+        - whittle.6
+        - engrave.3
+    recipe:
+        - valewood.4
+        - silk.1
+medieval_market_wagon_purple:
+    name: "§fMarket Wagon Purple"
+    category: market
+    item: ia.lzfurniture:medieval_market_wagon_purple
+    hits:
+        - whittle.6
+        - engrave.3
+    recipe:
+        - valewood.4
+        - silk.1
+medieval_market_wagon2:
+    name: "§fMarket Hay Wagon"
+    category: market
+    item: ia.lzfurniture:medieval_market_wagon2
+    hits:
+        - whittle.4
+        - engrave.3
+    recipe:
+        - valewood.2
+medieval_market_wall_lantern:
+    name: "§fMarket Wall Lantern"
+    category: market
+    item: ia.lzfurniture:medieval_market_wall_lantern
+    hits:
+        - whittle.2
+        - engrave.3
+        - hit.1
+    recipe:
+        - valewood.1
+        - runebark.1
+medieval_market_well:
+    name: "§fMarket Well"
+    category: market
+    item: ia.lzfurniture:medieval_market_well
+    hits:
+        - whittle.5
+        - engrave.2
+        - hit.3
+    recipe:
+        - valewood.1
+        - runebark.2
+        - silk.1
+medieval_market_wood_pile:
+    name: "§fMarket Wood Pile"
+    category: market
+    item: ia.lzfurniture:medieval_market_wood_pile
+    hits:
+        - whittle.2
+    recipe:
+        - valewood.1

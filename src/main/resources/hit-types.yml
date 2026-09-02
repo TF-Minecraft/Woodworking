@@ -1,0 +1,8 @@
+# Hit categories. Each hit in hits.yml belongs to exactly one of these.
+# These are the buckets the project menu groups requirements under.
+wood:
+    name: "§2Woodworking"
+metal:
+    name: "§7Metalworking"
+other:
+    name: "§fOther"

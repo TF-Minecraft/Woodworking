@@ -1,0 +1,9 @@
+# Woodworking station block/furniture, resolved through the TLibs block checker.
+station: iaf(tfmc:woodworking_station)
+
+# Tool used to open the project menu and to finish or cancel a project.
+branding-tool: m.tools.skin_branding_tool
+
+# Profession node checked when using a bench. Leave empty to allow everyone.
+# woodworking.admin always bypasses. This plugin does not grant the node.
+permission: profession.woodworking

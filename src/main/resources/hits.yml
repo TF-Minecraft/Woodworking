@@ -1,0 +1,25 @@
+# Tool paths are MMOItems TYPE.ID, matched against the item in the player's main hand.
+whittle:
+    tool: tools.whittling_tool
+    name: "§7Whittle"
+    type: wood
+engrave:
+    tool: tools.engraving_tool
+    name: "§7Engrave"
+    type: wood
+hit:
+    tool: tools.hammer_tool
+    name: "§7Hit"
+    type: metal
+small_hit:
+    tool: tools.small_hammer_tool
+    name: "§7Small Hit"
+    type: metal
+etch:
+    tool: tools.etching_tool
+    name: "§7Etch"
+    type: metal
+sew:
+    tool: tools.sewing_needle
+    name: "§7Sew"
+    type: other

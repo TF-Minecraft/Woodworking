@@ -1,0 +1,22 @@
+# type groups the material into an ingredient bucket. Any string is accepted so new
+# buckets (for example metal) can be added without a code change.
+valewood:
+    name: "Valewood"
+    path: m.materials.valewood
+    type: wood
+runebark:
+    name: "Runebark"
+    path: m.materials.runebark
+    type: wood
+amberpine:
+    name: "Amberpine"
+    path: m.materials.amberpine
+    type: wood
+goldmaple:
+    name: "Goldmaple"
+    path: m.materials.goldmaple
+    type: wood
+silk:
+    name: "Silk"
+    path: m.materials.silk
+    type: other

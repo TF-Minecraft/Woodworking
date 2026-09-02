@@ -1,0 +1,7 @@
+# Ingredient buckets. materials.yml `type:` must match an id here.
+wood:
+    name: "§2Wood Materials"
+metal:
+    name: "§7Metal Materials"
+other:
+    name: "§fOther Materials"

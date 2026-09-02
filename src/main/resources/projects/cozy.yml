@@ -1,0 +1,109 @@
+cozy_armchair:
+    name: "§aCozy Armchair"
+    category: cozy
+    item: ia.lzfurniture:cozy_armchair
+    hits:
+        - whittle.1
+        - engrave.2
+        - sew.1
+    recipe:
+        - amberpine.1
+        - silk.1
+cozy_carpet:
+    name: "§aCozy Carpet"
+    category: cozy
+    item: ia.lzfurniture:cozy_carpet
+    hits:
+        - sew.2
+    recipe:
+        - silk.2
+cozy_chair:
+    name: "§aCozy Chair"
+    category: cozy
+    item: ia.lzfurniture:cozy_chair
+    hits:
+        - whittle.1
+        - engrave.1
+    recipe:
+        - amberpine.2
+cozy_book:
+    name: "§aCozy Book"
+    category: cozy
+    item: ia.lzfurniture:cozy_book
+    hits:
+        - whittle.1
+        - engrave.1
+    recipe:
+        - amberpine.2
+cozy_fireplace:
+    name: "§aCozy Fireplace"
+    category: cozy
+    item: ia.lzfurniture:cozy_fireplace
+    hits:
+        - whittle.2
+        - engrave.2
+    recipe:
+        - amberpine.2
+cozy_grandfatherclock:
+    name: "§aCozy Grandfather Clock"
+    category: cozy
+    item: ia.lzfurniture:cozy_grandfatherclock
+    hits:
+        - whittle.1
+        - engrave.2
+        - small_hit.1
+        - etch.1
+    recipe:
+        - amberpine.2
+        - goldmaple.1
+cozy_painting:
+    name: "§aCozy Painting"
+    category: cozy
+    item: ia.lzfurniture:cozy_painting
+    hits:
+        - whittle.1
+        - engrave.3
+    recipe:
+        - amberpine.1
+cozy_piano:
+    name: "§aCozy Piano"
+    category: cozy
+    item: ia.lzfurniture:cozy_piano
+    hits:
+        - whittle.3
+        - engrave.2
+        - hit.1
+    recipe:
+        - amberpine.2
+        - goldmaple.1
+cozy_sideboard:
+    name: "§aCozy Sideboard"
+    category: cozy
+    item: ia.lzfurniture:cozy_sideboard
+    hits:
+        - whittle.1
+        - engrave.2
+    recipe:
+        - amberpine.2
+cozy_sofa:
+    name: "§aCozy Sofa"
+    category: cozy
+    item: ia.lzfurniture:cozy_sofa
+    hits:
+        - whittle.1
+        - engrave.2
+        - sew.2
+    recipe:
+        - amberpine.2
+        - silk.2
+cozy_bench:
+    name: "§aCozy Bench"
+    category: cozy
+    item: ia.lzfurniture:cozy_bench
+    hits:
+        - whittle.1
+        - engrave.1
+        - sew.1
+    recipe:
+        - amberpine.1
+        - silk.1

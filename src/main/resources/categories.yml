@@ -1,0 +1,16 @@
+# Menu categories. Projects reference these by key from projects/*.yml.
+market:
+    name: "§fMarket"
+    item: ia.lzfurniture:medieval_market_box_apples
+royal:
+    name: "§6Royal"
+    item: ia.lzfurniture:medievalroyal_chair
+marauder:
+    name: "§8Marauder"
+    item: ia.lzfurniture:marauder_coins
+cozy:
+    name: "§aCozy"
+    item: ia.lzfurniture:cozy_armchair
+witch:
+    name: "§5Witch"
+    item: ia.lzfurniture:witch_armchair

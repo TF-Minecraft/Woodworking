@@ -1,0 +1,279 @@
+medievalroyal_chair:
+    name: "§6Royal Chair"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_chair
+    hits:
+        - whittle.3
+        - engrave.2
+        - hit.1
+        - small_hit.1
+    recipe:
+        - amberpine.2
+        - goldmaple.1
+medievalroyal_banner:
+    name: "§6Royal Banner"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_banner
+    hits:
+        - whittle.1
+        - hit.1
+        - small_hit.2
+    recipe:
+        - amberpine.1
+        - goldmaple.1
+        - silk.2
+medievalroyal_dish_fruits:
+    name: "§6Royal Fruit Bowl"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_dish_fruits
+    hits:
+        - hit.1
+        - small_hit.1
+    recipe:
+        - goldmaple.1
+medievalroyal_dish:
+    name: "§6Royal Bowl"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_dish
+    hits:
+        - hit.1
+        - small_hit.1
+    recipe:
+        - goldmaple.1
+medievalroyal_books:
+    name: "§6Royal Books"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_books
+    hits:
+        - whittle.1
+        - engrave.2
+        - small_hit.1
+    recipe:
+        - amberpine.1
+        - goldmaple.1
+medievalroyal_bookshelf:
+    name: "§6Royal Bookshelf"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_bookshelf
+    hits:
+        - whittle.4
+        - engrave.2
+        - hit.2
+        - small_hit.1
+    recipe:
+        - amberpine.1
+        - goldmaple.3
+medievalroyal_shelf:
+    name: "§6Royal Shelf"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_shelf
+    hits:
+        - whittle.2
+        - engrave.1
+        - hit.1
+    recipe:
+        - amberpine.2
+        - goldmaple.1
+medievalroyal_stool:
+    name: "§6Royal Stool"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_stool
+    hits:
+        - whittle.2
+        - engrave.2
+        - hit.1
+    recipe:
+        - amberpine.1
+        - goldmaple.1
+medievalroyal_candleholder:
+    name: "§6Royal Candleholder"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_candleholder
+    hits:
+        - hit.2
+        - small_hit.1
+        - etch.1
+    recipe:
+        - goldmaple.2
+medievalroyal_candle:
+    name: "§6Royal Candle"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_candle
+    hits:
+        - hit.1
+        - small_hit.1
+        - etch.1
+    recipe:
+        - goldmaple.1
+medievalroyal_sofa:
+    name: "§6Royal Sofa"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_sofa
+    hits:
+        - whittle.1
+        - engrave.2
+        - hit.1
+        - small_hit.1
+    recipe:
+        - amberpine.2
+        - goldmaple.1
+        - silk.2
+medievalroyal_sofa_big:
+    name: "§6Royal Large Sofa"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_sofa_big
+    hits:
+        - whittle.2
+        - engrave.3
+        - hit.2
+        - small_hit.1
+    recipe:
+        - amberpine.2
+        - goldmaple.2
+        - silk.4
+medievalroyal_table:
+    name: "§6Royal Table"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_table
+    hits:
+        - whittle.3
+        - engrave.2
+        - hit.3
+        - small_hit.2
+        - etch.1
+    recipe:
+        - amberpine.3
+        - goldmaple.2
+medieval_carpet:
+    name: "§6Medieval Carpet"
+    category: royal
+    item: ia.lzfurniture:medieval_carpet
+    hits:
+        - sew.5
+        - small_hit.1
+    recipe:
+        - goldmaple.1
+        - silk.4
+medieval_carpet_royal:
+    name: "§6Medieval Royal Carpet"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_carpet
+    hits:
+        - sew.4
+        - small_hit.2
+    recipe:
+        - goldmaple.2
+        - silk.4
+medievalroyal_throne:
+    name: "§6Royal Throne"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_throne
+    hits:
+        - whittle.1
+        - engrave.2
+        - hit.1
+        - small_hit.1
+        - sew.2
+    recipe:
+        - amberpine.2
+        - goldmaple.2
+        - silk.3
+medievalroyal_bed:
+    name: "§6Royal Bed"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_bed
+    hits:
+        - whittle.2
+        - engrave.3
+        - hit.1
+        - small_hit.2
+        - sew.3
+    recipe:
+        - amberpine.3
+        - goldmaple.1
+        - silk.4
+medievalroyal_painting_2x1:
+    name: "§6Royal Painting"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_painting_2x1
+    hits:
+        - whittle.2
+        - engrave.1
+        - sew.4
+    recipe:
+        - amberpine.2
+        - goldmaple.1
+        - silk.2
+medievalroyal_painting_3x2:
+    name: "§6Big Royal Painting"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_painting_3x2
+    hits:
+        - whittle.2
+        - engrave.3
+        - sew.4
+    recipe:
+        - amberpine.3
+        - goldmaple.2
+        - silk.4
+medievalroyal_mirror:
+    name: "§6Royal Mirror"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_mirror
+    hits:
+        - whittle.2
+        - engrave.2
+        - hit.4
+        - small_hit.2
+    recipe:
+        - amberpine.2
+        - goldmaple.2
+medievalroyal_chandelier:
+    name: "§6Royal Chandelier"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_chandelier
+    hits:
+        - whittle.2
+        - engrave.1
+        - small_hit.2
+        - sew.1
+    recipe:
+        - amberpine.1
+        - goldmaple.2
+        - silk.1
+medievalroyal_pillow:
+    name: "§6Royal Pillow"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_pillow
+    hits:
+        - sew.5
+        - small_hit.1
+    recipe:
+        - goldmaple.1
+        - silk.5
+medievalroyal_tablecandleholder:
+    name: "§6Royal Candle Holder"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_tablecandleholder
+    hits:
+        - whittle.2
+        - engrave.1
+        - hit.2
+        - small_hit.2
+        - sew.1
+    recipe:
+        - amberpine.1
+        - goldmaple.2
+        - silk.1
+medievalroyal_torch:
+    name: "§6Royal Torch"
+    category: royal
+    item: ia.lzfurniture:medievalroyal_torch
+    hits:
+        - whittle.2
+        - engrave.2
+        - hit.3
+        - small_hit.2
+    recipe:
+        - amberpine.1
+        - goldmaple.3

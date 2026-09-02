@@ -1,0 +1,18 @@
+main: net.tfminecraft.woodworking.Woodworking
+api-version: 1.20
+name: Woodworking
+version: 0.1.0
+author: Drefvelin
+
+depend: [TLibs, MMOItems, MythicLib]
+softdepend: [ItemsAdder]
+
+commands:
+  woodworking:
+    usage: /<command> reload | select <projectId>
+    description: Woodworking admin command
+
+permissions:
+  woodworking.admin:
+    description: Access to Woodworking admin commands
+    default: op

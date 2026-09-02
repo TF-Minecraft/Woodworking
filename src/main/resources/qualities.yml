@@ -1,0 +1,22 @@
+# Quality tiers picked by hit accuracy percentage. The highest tier whose "amount"
+# threshold is met wins. Not consumed until W5.
+crude:
+    amount: 0.0
+    value: 1
+    name: "§fCrude"
+common:
+    amount: 50.0
+    value: 2
+    name: "§aSturdy"
+rare:
+    amount: 75.0
+    value: 3
+    name: "§9Fine"
+epic:
+    amount: 90.0
+    value: 4
+    name: "§5Ornate"
+legendary:
+    amount: 100.0
+    value: 5
+    name: "§6Masterwork"

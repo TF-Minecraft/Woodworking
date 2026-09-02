@@ -1,0 +1,93 @@
+witch_armchair:
+    name: "§5Witch Armchair"
+    category: witch
+    item: ia.lzfurniture:witch_armchair
+    hits:
+        - whittle.3
+        - engrave.1
+        - sew.1
+    recipe:
+        - runebark.2
+        - silk.1
+witch_cabin_full:
+    name: "§5Witch Cabinet Full"
+    category: witch
+    item: ia.lzfurniture:witch_cabin_full
+    hits:
+        - whittle.3
+        - engrave.1
+        - hit.1
+    recipe:
+        - runebark.2
+        - goldmaple.1
+witch_cabin_empty:
+    name: "§5Witch Cabinet Empty"
+    category: witch
+    item: ia.lzfurniture:witch_cabin_empty
+    hits:
+        - whittle.3
+        - engrave.1
+    recipe:
+        - runebark.2
+witch_candles:
+    name: "§5Witch Candles"
+    category: witch
+    item: ia.lzfurniture:witch_candles
+    hits:
+        - engrave.1
+    recipe:
+        - runebark.1
+witch_carpet:
+    name: "§5Witch Carpet"
+    category: witch
+    item: ia.lzfurniture:witch_carpet
+    hits:
+        - sew.2
+    recipe:
+        - silk.2
+witch_cauldron:
+    name: "§5Witch Cauldron"
+    category: witch
+    item: ia.lzfurniture:witch_cauldron
+    hits:
+        - hit.3
+        - small_hit.1
+    recipe:
+        - runebark.1
+witch_desk:
+    name: "§5Witch Desk"
+    category: witch
+    item: ia.lzfurniture:witch_desk
+    hits:
+        - whittle.3
+        - engrave.1
+        - hit.1
+    recipe:
+        - runebark.2
+        - goldmaple.1
+witch_glass_1:
+    name: "§5Witch Glass"
+    category: witch
+    item: ia.lzfurniture:witch_glass_1
+    hits:
+        - engrave.1
+    recipe:
+        - runebark.1
+witch_glass_2:
+    name: "§5Small Witch Glass"
+    category: witch
+    item: ia.lzfurniture:witch_glass_2
+    hits:
+        - engrave.1
+    recipe:
+        - runebark.1
+witch_scry_ball:
+    name: "§5Witch Scry Ball"
+    category: witch
+    item: ia.lzfurniture:witch_scry_ball
+    hits:
+        - engrave.1
+        - sew.2
+    recipe:
+        - runebark.1
+        - silk.2

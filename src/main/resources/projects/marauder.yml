@@ -1,0 +1,174 @@
+marauder_desk:
+    name: "§8Marauder Desk"
+    category: marauder
+    item: ia.lzfurniture:marauder_desk
+    hits:
+        - whittle.2
+        - engrave.1
+        - hit.1
+    recipe:
+        - valewood.2
+marauder_globe:
+    name: "§8Marauder Globe"
+    category: marauder
+    item: ia.lzfurniture:marauder_globe
+    hits:
+        - whittle.1
+        - engrave.1
+    recipe:
+        - valewood.1
+marauder_map:
+    name: "§8Marauder Map"
+    category: marauder
+    item: ia.lzfurniture:marauder_map
+    hits:
+        - whittle.2
+    recipe:
+        - valewood.1
+marauder_paperrolls:
+    name: "§8Marauder Paperrolls"
+    category: marauder
+    item: ia.lzfurniture:marauder_paperrolls
+    hits:
+        - whittle.2
+    recipe:
+        - valewood.1
+marauder_planks:
+    name: "§8Marauder Planks"
+    category: marauder
+    item: ia.lzfurniture:marauder_planks
+    hits:
+        - whittle.1
+    recipe:
+        - valewood.1
+marauder_rum_bottles:
+    name: "§8Marauder Rum Bottles"
+    category: marauder
+    item: ia.lzfurniture:marauder_rum_bottles
+    hits:
+        - hit.1
+        - small_hit.1
+    recipe:
+        - goldmaple.1
+marauder_sideboard:
+    name: "§8Marauder Sideboard"
+    category: marauder
+    item: ia.lzfurniture:marauder_sideboard
+    hits:
+        - whittle.1
+        - engrave.2
+        - hit.1
+    recipe:
+        - valewood.2
+marauder_telescope:
+    name: "§8Marauder Telescope"
+    category: marauder
+    item: ia.lzfurniture:marauder_telescope
+    hits:
+        - whittle.2
+        - engrave.1
+        - hit.1
+        - small_hit.1
+    recipe:
+        - runebark.2
+        - goldmaple.1
+marauder_vase:
+    name: "§8Marauder Vase"
+    category: marauder
+    item: ia.lzfurniture:marauder_vase
+    hits:
+        - whittle.1
+        - hit.1
+    recipe:
+        - valewood.1
+marauder_bar:
+    name: "§8Marauder Bar"
+    category: marauder
+    item: ia.lzfurniture:marauder_bar
+    hits:
+        - whittle.1
+        - engrave.1
+    recipe:
+        - valewood.1
+marauder_bar_rope:
+    name: "§8Marauder Bar Rope"
+    category: marauder
+    item: ia.lzfurniture:marauder_bar_rope
+    hits:
+        - whittle.1
+        - engrave.2
+    recipe:
+        - valewood.1
+marauder_bar_curtain_left:
+    name: "§8Marauder Bar Curtain Left"
+    category: marauder
+    item: ia.lzfurniture:marauder_bar_curtain_left
+    hits:
+        - whittle.1
+        - engrave.2
+        - sew.1
+    recipe:
+        - valewood.1
+        - silk.1
+marauder_bar_curtain_right:
+    name: "§8Marauder Bar Curtain Right"
+    category: marauder
+    item: ia.lzfurniture:marauder_bar_curtain_right
+    hits:
+        - whittle.1
+        - engrave.2
+        - sew.1
+    recipe:
+        - valewood.1
+        - silk.1
+marauder_books:
+    name: "§8Marauder Books"
+    category: marauder
+    item: ia.lzfurniture:marauder_books
+    hits:
+        - whittle.1
+        - engrave.1
+    recipe:
+        - valewood.1
+marauder_canon:
+    name: "§8Marauder Cannon"
+    category: marauder
+    item: ia.lzfurniture:marauder_canon
+    hits:
+        - whittle.2
+        - engrave.1
+        - hit.1
+    recipe:
+        - runebark.2
+marauder_chest_closed:
+    name: "§8Marauder Chest Closed"
+    category: marauder
+    item: ia.lzfurniture:marauder_chest_closed
+    hits:
+        - whittle.2
+        - engrave.2
+        - hit.1
+    recipe:
+        - runebark.2
+marauder_chest_open:
+    name: "§8Marauder Chest Open"
+    category: marauder
+    item: ia.lzfurniture:marauder_chest_open
+    hits:
+        - whittle.2
+        - engrave.2
+        - hit.1
+        - small_hit.1
+    recipe:
+        - runebark.2
+        - goldmaple.1
+marauder_captain_chair:
+    name: "§8Marauder Captain Chair"
+    category: marauder
+    item: ia.lzfurniture:marauder_captain_chair
+    hits:
+        - whittle.2
+        - engrave.2
+        - hit.1
+    recipe:
+        - valewood.2
