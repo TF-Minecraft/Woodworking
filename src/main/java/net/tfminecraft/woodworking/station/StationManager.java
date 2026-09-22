@@ -184,6 +184,8 @@ public class StationManager implements Listener {
         }
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onMenuClick(InventoryClickEvent e) {
         String title = e.getView().getTitle();
@@ -240,6 +242,8 @@ public class StationManager implements Listener {
         p.playSound(p.getLocation(), Sound.BLOCK_ANVIL_PLACE, 0.8f, 2f);
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     private void handleRightClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         ItemStack hand = p.getInventory().getItemInMainHand();
@@ -293,6 +297,8 @@ public class StationManager implements Listener {
         }
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     private void handleLeftClick(PlayerInteractEvent e) {
         Player p = e.getPlayer();
         WoodStation station = get(e.getClickedBlock().getLocation());
@@ -385,6 +391,8 @@ public class StationManager implements Listener {
         p.sendMessage("§cSHIFT + LEFT CLICK with the branding tool to cancel the project!");
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     private void completeCraft(Player p, WoodStation station) {
         WoodProject project = station.getProject();
         String path = project.getItem();

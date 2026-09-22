@@ -42,6 +42,8 @@ public class InventoryManager {
         return new NamespacedKey(Woodworking.plugin, "ww_page");
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     public void openCategories(Player player) {
         Inventory inv = Woodworking.plugin.getServer().createInventory(null, 27, CATEGORY_TITLE);
         int slot = 0;
@@ -66,6 +68,8 @@ public class InventoryManager {
         player.openInventory(inv);
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     public void openProjects(Player player, WoodCategory category, int page) {
         if (page < 0) page = 0;
         Inventory inv = Woodworking.plugin.getServer().createInventory(null, 54, PROJECT_TITLE);
@@ -93,6 +97,8 @@ public class InventoryManager {
         player.openInventory(inv);
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     private ItemStack decorateProject(ItemStack icon, WoodProject project) {
         ItemMeta meta = icon.getItemMeta();
         if (meta == null) return icon;
@@ -111,6 +117,8 @@ public class InventoryManager {
         return icon;
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     private ItemStack pageButton(String name, String categoryId, int page) {
         ItemStack item = new ItemStack(Material.ARROW);
         ItemMeta meta = item.getItemMeta();
@@ -144,6 +152,8 @@ public class InventoryManager {
         return copy;
     }
 
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
     private void fillEmpty(Inventory inv) {
         ItemStack fill = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
         ItemMeta meta = fill.getItemMeta();
