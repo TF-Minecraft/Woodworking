@@ -450,7 +450,7 @@ public class StationManager implements Listener {
     private void playWorkFx(Location loc, Material dust) {
         if (loc.getWorld() == null) return;
         loc.getWorld().spawnParticle(
-                Particle.BLOCK_DUST,
+                Particle.BLOCK,
                 loc.clone().add(0.5, 1, 0.5),
                 20, 0.1, 0.2, 0.1,
                 dust.createBlockData());
