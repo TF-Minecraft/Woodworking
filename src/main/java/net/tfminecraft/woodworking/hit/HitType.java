@@ -2,7 +2,7 @@ package net.tfminecraft.woodworking.hit;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import me.Plugins.TLibs.Objects.API.SubAPI.StringFormatter;
+import net.tfminecraft.tlibs.objects.api.subapi.StringFormatter;
 
 /** A bucket of related hits, used to group requirements in the project menu. */
 public class HitType {

@@ -9,7 +9,7 @@ import java.util.Map;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 
-import me.Plugins.TLibs.Objects.Utils.IntCounter;
+import net.tfminecraft.tlibs.objects.utils.IntCounter;
 import net.tfminecraft.woodworking.hit.CraftingHit;
 import net.tfminecraft.woodworking.hit.HitType;
 import net.tfminecraft.woodworking.loader.HitLoader;

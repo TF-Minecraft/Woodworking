@@ -2,7 +2,7 @@ package net.tfminecraft.woodworking.project;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import me.Plugins.TLibs.Objects.API.SubAPI.StringFormatter;
+import net.tfminecraft.tlibs.objects.api.subapi.StringFormatter;
 
 /** Outcome tier picked from the hit accuracy percentage of a finished project. */
 public class Quality {

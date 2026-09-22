@@ -2,7 +2,7 @@ package net.tfminecraft.woodworking.hit;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import me.Plugins.TLibs.Objects.API.SubAPI.StringFormatter;
+import net.tfminecraft.tlibs.objects.api.subapi.StringFormatter;
 import net.tfminecraft.woodworking.loader.HitTypeLoader;
 
 /** One tool action, for example a whittle. Resolved from the tool in the player's hand. */

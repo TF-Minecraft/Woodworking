@@ -4,7 +4,7 @@ import java.io.File;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import me.Plugins.TLibs.Interface.LoaderInterface;
+import net.tfminecraft.tlibs.interfaces.LoaderInterface;
 import net.tfminecraft.woodworking.cache.Cache;
 
 public class ConfigLoader implements LoaderInterface {

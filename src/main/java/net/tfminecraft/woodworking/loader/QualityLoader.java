@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import me.Plugins.TLibs.Interface.LoaderInterface;
+import net.tfminecraft.tlibs.interfaces.LoaderInterface;
 import net.tfminecraft.woodworking.project.Quality;
 
 public class QualityLoader implements LoaderInterface {
