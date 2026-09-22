@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 
 import org.bukkit.configuration.file.FileConfiguration;
 
-import me.Plugins.TLibs.Interface.LoaderInterface;
+import net.tfminecraft.tlibs.interfaces.LoaderInterface;
 import net.tfminecraft.woodworking.hit.HitType;
 
 public class HitTypeLoader implements LoaderInterface {

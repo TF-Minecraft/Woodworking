@@ -23,8 +23,8 @@ import org.bukkit.persistence.PersistentDataType;
 
 import dev.lone.itemsadder.api.Events.FurnitureBreakEvent;
 import io.lumine.mythic.lib.api.item.NBTItem;
-import me.Plugins.TLibs.TLibs;
-import me.Plugins.TLibs.Objects.Utils.IntCounter;
+import net.tfminecraft.tlibs.TLibs;
+import net.tfminecraft.tlibs.objects.utils.IntCounter;
 import net.tfminecraft.woodworking.cache.Cache;
 import net.tfminecraft.woodworking.command.Permissions;
 import net.tfminecraft.woodworking.database.StationStore;
