@@ -1,41 +1,24 @@
-# woodworking
+# Woodworking
 
-Technical documentation is maintained in [TF-Minecraft/Docs](https://github.com/TF-Minecraft/Docs/blob/main/projects/Woodworking/README.md).
+> Furniture crafting at the workbench for TF-Minecraft.
 
-Use that project index for setup, configuration, architecture, integration and testing guides. This repository contains the source and project-specific assets.
+Woodworking turns furniture production into a practical workshop activity. Players choose a project, contribute its materials, work it with the required tools, and finish the piece with a branding tool. Each design has its own combination of ingredients and actions.
 
-## TLibs build dependency
+## Features
 
-TLibs is a versioned Maven `provided` dependency. From this repository, prepare
-it once with the shared installer, then build as usual:
+- **Furniture collections** — browse projects grouped into themes such as Cozy, Market, Royal, Marauder, and Witch.
+- **Varied projects** — create furnishings such as chairs, sofas, carpets, sideboards, clocks, and decorative pieces from the supplied catalogue.
+- **Material recipes** — projects combine named woods and other materials, including fabric where the design calls for it.
+- **Multiple crafts at one bench** — woodworking, metalworking, and other actions bring whittling, engraving, hammering, and sewing into the same project system.
+- **Visible progress** — track deposited materials and completed tool actions through the project interface and in-world feedback.
+- **Persistent workshop projects** — station progress is stored so unfinished work can survive a server restart.
 
-```sh
-python3 ../tlibs/tools/install-dependency.py --pom pom.xml
-mvn clean verify
-```
+## From materials to furniture
 
-See [TLibs dependency setup](https://github.com/TF-Minecraft/TLibs/blob/5da8e77d0e0696bbff7d7064a2644072da9c6428/DEPENDENCIES.md)
-for public release installation, offline builds and rollback.
-Other declared build dependencies still need their usual preparation.
-Use JDK 25 for this TLibs binary; the server must also run Java 25.
+Each workbench holds a project while its materials and required actions are completed. Finishing checks the recipe and tool work before producing the furniture item. Players can inspect progress with the branding tool or deliberately cancel a project when changing plans.
 
-Builds and server runtime require Java 25. Local builds default to [TLibs 1.1.0](https://github.com/TF-Minecraft/TLibs/releases/tag/v1.1.0); CI resolves the latest published stable TLibs release for each build, verifies its checksum, and uses its exact version throughout that job.
+## Documentation
 
-## Shared plugin dependencies
+[Project documentation](https://github.com/TF-Minecraft/Docs/blob/main/projects/Woodworking/README.md)
 
-Build and release workflows install checksum-verified plugin releases through
-[TLibs' shared installer](https://github.com/TF-Minecraft/TLibs/blob/main/DEPENDENCIES.md).
-CI selects the latest published versions; local builds use the explicit Maven
-version properties. Shared plugins use `provided` scope and remain separate
-server plugins. Each build records exact versions and checksums in
-`.build/plugin-dependencies.json` alongside its JAR.
-
-From this checkout, with the TLibs repository next to it:
-
-```sh
-python3 ../tlibs/tools/install-plugins.py --pom pom.xml
-```
-
-Prepare any remaining third-party inputs with `.github/scripts/prepare-release.sh`
-before running Maven. Any source-unavailable inputs remain private and checksum-pinned wherever declared; see the installer
-documentation for authentication and reproducible rebuilds.
+Technical documentation is maintained in [TF-Minecraft/Docs](https://github.com/TF-Minecraft/Docs).
