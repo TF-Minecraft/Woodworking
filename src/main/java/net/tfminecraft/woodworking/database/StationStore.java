@@ -194,6 +194,8 @@ public final class StationStore {
         return out;
     }
 
+    // Preserve the existing serialized item format so previously saved graves remain readable.
+    @SuppressWarnings("deprecation")
     private static String encodeItem(ItemStack item) {
         if (item == null) return null;
         try (ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -207,6 +209,8 @@ public final class StationStore {
         }
     }
 
+    // Preserve the existing serialized item format so previously saved graves remain readable.
+    @SuppressWarnings("deprecation")
     private static ItemStack decodeItem(String raw) {
         if (raw == null || raw.isBlank()) return null;
         try (ByteArrayInputStream bytes = new ByteArrayInputStream(Base64.getDecoder().decode(raw));
