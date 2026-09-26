@@ -166,17 +166,20 @@ public class StationManager implements Listener {
         }
     }
 
+    /** ItemsAdder breaks the furniture even when the tool click was cancelled, so working the bench would destroy it. */
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-    public void onFurnitureBreak(FurnitureBreakEvent e) {
-        if (e.getNamespacedID() == null) return;
-        if (!e.getNamespacedID().equalsIgnoreCase(furnitureId())) return;
-
-        // ItemsAdder breaks the furniture even when the tool click was cancelled, so working the bench would destroy it.
+    public void onToolBreak(FurnitureBreakEvent e) {
+        if (!isStationFurniture(e)) return;
         Player breaker = e.getPlayer();
         if (breaker != null && isStationTool(breaker.getInventory().getItemInMainHand())) {
             e.setCancelled(true);
-            return;
         }
+    }
+
+    /** Runs at MONITOR so a break cancelled by any other listener keeps its bench and project. */
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onFurnitureBreak(FurnitureBreakEvent e) {
+        if (!isStationFurniture(e)) return;
 
         Location loc = e.getBukkitEntity().getLocation().getBlock().getLocation();
         WoodStation station = get(loc);
@@ -184,6 +187,7 @@ public class StationManager implements Listener {
 
         List<ItemStack> refund = station.hasProject() ? station.cancel() : List.of();
         remove(loc);
+        Player breaker = e.getPlayer();
         if (breaker != null) {
             giveOrDrop(breaker, refund);
         } else {
@@ -425,6 +429,10 @@ public class StationManager implements Listener {
 
     private boolean isBranding(ItemStack item) {
         return TLibs.getItemAPI().getChecker().checkItemWithPath(item, Cache.brandingTool);
+    }
+
+    private boolean isStationFurniture(FurnitureBreakEvent e) {
+        return e.getNamespacedID() != null && e.getNamespacedID().equalsIgnoreCase(furnitureId());
     }
 
     /** Resolves the MMOItems TYPE.ID of a held tool to its hit, or null when it is not a hit tool. */
