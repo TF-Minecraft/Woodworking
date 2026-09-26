@@ -13,6 +13,7 @@ import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -165,10 +166,17 @@ public class StationManager implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onFurnitureBreak(FurnitureBreakEvent e) {
         if (e.getNamespacedID() == null) return;
         if (!e.getNamespacedID().equalsIgnoreCase(furnitureId())) return;
+
+        // ItemsAdder breaks the furniture even when the tool click was cancelled, so working the bench would destroy it.
+        Player breaker = e.getPlayer();
+        if (breaker != null && isStationTool(breaker.getInventory().getItemInMainHand())) {
+            e.setCancelled(true);
+            return;
+        }
 
         Location loc = e.getBukkitEntity().getLocation().getBlock().getLocation();
         WoodStation station = get(loc);
@@ -176,7 +184,6 @@ public class StationManager implements Listener {
 
         List<ItemStack> refund = station.hasProject() ? station.cancel() : List.of();
         remove(loc);
-        Player breaker = e.getPlayer();
         if (breaker != null) {
             giveOrDrop(breaker, refund);
         } else {
@@ -338,9 +345,7 @@ public class StationManager implements Listener {
             return;
         }
 
-        NBTItem nbt = NBTItem.get(hand);
-        if (!nbt.hasType()) return;
-        CraftingHit hit = HitLoader.getByTool(nbt.getType() + "." + nbt.getString("MMOITEMS_ITEM_ID"));
+        CraftingHit hit = matchHit(hand);
         if (hit == null) return;
 
         e.setCancelled(true);
@@ -420,6 +425,20 @@ public class StationManager implements Listener {
 
     private boolean isBranding(ItemStack item) {
         return TLibs.getItemAPI().getChecker().checkItemWithPath(item, Cache.brandingTool);
+    }
+
+    /** Resolves the MMOItems TYPE.ID of a held tool to its hit, or null when it is not a hit tool. */
+    private CraftingHit matchHit(ItemStack item) {
+        if (item == null || item.getType().isAir()) return null;
+        NBTItem nbt = NBTItem.get(item);
+        if (!nbt.hasType()) return null;
+        return HitLoader.getByTool(nbt.getType() + "." + nbt.getString("MMOITEMS_ITEM_ID"));
+    }
+
+    /** True for the branding tool and every configured hit tool. */
+    private boolean isStationTool(ItemStack item) {
+        if (item == null || item.getType().isAir()) return false;
+        return isBranding(item) || matchHit(item) != null;
     }
 
     private WoodMaterial matchMaterial(ItemStack item) {
