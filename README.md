@@ -15,7 +15,7 @@ Woodworking turns furniture production into a practical workshop activity. Playe
 
 ## From materials to furniture
 
-Each workbench holds a project while its materials and required actions are completed. The bench accepts any woodworking material and any tool action, so players have to know the design. Finishing produces the furniture only when the materials, their amounts and the tool actions all match the recipe exactly. Any other finish ruins the project and the deposited materials are lost. Players can inspect progress with the branding tool or deliberately cancel a project, with a full refund, when changing plans.
+Each workbench holds a project while its materials and required actions are completed. The bench accepts any woodworking material and any tool action, so players have to know the design. Tool work starts once every material group has at least the amount the project lists, and finishing waits until every hit group has too. From there, finishing produces the furniture only when the materials, their amounts and the tool actions all match the recipe exactly. Any other finish ruins the project and the deposited materials are lost. Players can inspect progress with the branding tool or deliberately cancel a project, with a full refund, when changing plans.
 
 ## Documentation
 

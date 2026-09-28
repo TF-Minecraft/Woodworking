@@ -4,6 +4,8 @@ package net.tfminecraft.woodworking.station;
 public enum StationFeedback {
     SUCCESS,
     WRONG_TYPE,
+    LACKING_ITEMS,
+    LACKING_HITS,
     RECIPE_MISMATCH,
     NO_PROJECT
 }

@@ -164,14 +164,36 @@ public class WoodStation {
         return StationFeedback.SUCCESS;
     }
 
-    /** Accepts any hit, in any order and amount, like {@link #addMaterial(WoodMaterial, ItemStack)}. */
+    /**
+     * Accepts any hit, in any order and amount, once every material bucket has at least the
+     * amount the project menu lists.
+     */
     public StationFeedback hit(CraftingHit hit) {
         if (project == null) return StationFeedback.NO_PROJECT;
+        if (!materialsAdded()) return StationFeedback.LACKING_ITEMS;
         if (hit == null || hit.getType() == null) return StationFeedback.WRONG_TYPE;
 
         hits.computeIfAbsent(hit, k -> new IntCounter()).increaseCurrent(1);
         hitTypes.computeIfAbsent(hit.getType(), k -> new IntCounter()).increaseCurrent(1);
         return StationFeedback.SUCCESS;
+    }
+
+    /** True when every material bucket holds at least its needed amount. Extra input still counts. */
+    public boolean materialsAdded() {
+        return reachedNeeded(types);
+    }
+
+    /** True when every hit bucket holds at least its needed amount. Extra hits still count. */
+    public boolean hitsDone() {
+        return reachedNeeded(hitTypes);
+    }
+
+    private boolean reachedNeeded(Map<?, IntCounter> buckets) {
+        if (project == null) return false;
+        for (IntCounter c : buckets.values()) {
+            if (c.getCurrent() < c.getNeeded()) return false;
+        }
+        return true;
     }
 
     /** True when every required hit count matches and there are no extra leftover hits. */
@@ -199,9 +221,14 @@ public class WoodStation {
         return true;
     }
 
-    /** SUCCESS only when the deposited materials and the hits both match the project exactly. */
+    /**
+     * LACKING_* while a bucket is short of the listed amount, so finishing early changes nothing.
+     * Past that, SUCCESS only when the materials and the hits both match the project exactly.
+     */
     public StationFeedback canFinish() {
         if (project == null) return StationFeedback.NO_PROJECT;
+        if (!materialsAdded()) return StationFeedback.LACKING_ITEMS;
+        if (!hitsDone()) return StationFeedback.LACKING_HITS;
         if (!checkExactRecipe() || !checkExactHits()) return StationFeedback.RECIPE_MISMATCH;
         return StationFeedback.SUCCESS;
     }

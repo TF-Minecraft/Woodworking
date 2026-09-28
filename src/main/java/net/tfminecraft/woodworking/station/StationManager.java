@@ -325,7 +325,18 @@ public class StationManager implements Listener {
                 p.getWorld().playSound(station.getLoc(), Sound.ITEM_SHIELD_BREAK, 0.4f, 1f);
                 return;
             }
-            if (station.canFinish() != StationFeedback.SUCCESS) {
+            StationFeedback finish = station.canFinish();
+            if (finish == StationFeedback.LACKING_ITEMS) {
+                p.sendMessage("§cYou have to add all the items before finishing");
+                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+                return;
+            }
+            if (finish == StationFeedback.LACKING_HITS) {
+                p.sendMessage("§cYou need to complete all the hits before finishing");
+                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+                return;
+            }
+            if (finish != StationFeedback.SUCCESS) {
                 failCraft(p, station);
                 return;
             }
@@ -349,6 +360,10 @@ public class StationManager implements Listener {
                 p.sendTitle("§a+1 " + hit.getName(), typeName + " §e" + progress, 5, 20, 5);
                 playWorkFx(station.getLoc(), Material.OAK_PLANKS);
                 p.getWorld().playSound(station.getLoc(), Sound.BLOCK_ANVIL_USE, 0.4f, 1f);
+                break;
+            case LACKING_ITEMS:
+                p.sendMessage("§cYou have to add all the items before working");
+                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
                 break;
             case WRONG_TYPE:
                 p.sendMessage("§cThis item cannot be used for woodworking hits");
