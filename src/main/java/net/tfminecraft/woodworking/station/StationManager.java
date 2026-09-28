@@ -292,10 +292,6 @@ public class StationManager implements Listener {
                 playWorkFx(existing.getLoc(), Material.OAK_LOG);
                 p.getWorld().playSound(existing.getLoc(), Sound.ITEM_AXE_WAX_OFF, 0.7f, 2f);
                 break;
-            case CAPACITY:
-                p.sendMessage("§cYou already have the needed amount of this type");
-                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 0.5f);
-                break;
             case WRONG_TYPE:
                 p.sendMessage("§cThis item type is not needed for the project");
                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
@@ -329,20 +325,8 @@ public class StationManager implements Listener {
                 p.getWorld().playSound(station.getLoc(), Sound.ITEM_SHIELD_BREAK, 0.4f, 1f);
                 return;
             }
-            StationFeedback finish = station.canFinish();
-            if (finish == StationFeedback.LACKING_ITEMS) {
-                p.sendMessage("§cYou have to add all the items before working");
-                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                return;
-            }
-            if (finish == StationFeedback.LACKING_HITS) {
-                p.sendMessage("§cYou need to complete all the hits before finishing");
-                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                return;
-            }
-            if (finish == StationFeedback.RECIPE_MISMATCH) {
-                p.sendMessage("§cThe materials do not match the recipe");
-                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
+            if (station.canFinish() != StationFeedback.SUCCESS) {
+                failCraft(p, station);
                 return;
             }
             completeCraft(p, station);
@@ -366,21 +350,9 @@ public class StationManager implements Listener {
                 playWorkFx(station.getLoc(), Material.OAK_PLANKS);
                 p.getWorld().playSound(station.getLoc(), Sound.BLOCK_ANVIL_USE, 0.4f, 1f);
                 break;
-            case LACKING_ITEMS:
-                p.sendMessage("§cYou have to add all the items before working");
-                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                break;
             case WRONG_TYPE:
                 p.sendMessage("§cThis item cannot be used for woodworking hits");
                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                break;
-            case NONE:
-                p.sendMessage("§cThis tool is not needed for this project");
-                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                break;
-            case CAPACITY:
-                p.sendMessage("§cYou dont need more hits with this tool");
-                p.playSound(p.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1f, 0.5f);
                 break;
             default:
                 break;
@@ -425,6 +397,21 @@ public class StationManager implements Listener {
         p.sendTitle("§aYou made a " + project.getName(), qName, 5, 40, 10);
         station.cancel();
         remove(station.getLoc());
+    }
+
+    /** A wrong recipe or hit mix destroys the work. Deposited materials are not refunded. */
+    // Keep the existing legacy text representation, formatting, and exact-string comparisons.
+    @SuppressWarnings("deprecation")
+    private void failCraft(Player p, WoodStation station) {
+        String name = station.getProject().getName();
+        station.cancel();
+        remove(station.getLoc());
+        p.sendTitle("§cThe craft failed", "§7" + name + " §7was ruined and the materials were lost", 5, 40, 10);
+        Location loc = station.getLoc().clone().add(0.5, 1, 0.5);
+        if (loc.getWorld() != null) {
+            loc.getWorld().playSound(loc, Sound.ENTITY_ITEM_BREAK, 1f, 0.8f);
+            loc.getWorld().spawnParticle(Particle.SMOKE, loc, 20, 0.2, 0.2, 0.2, 0.02);
+        }
     }
 
     private boolean isBranding(ItemStack item) {

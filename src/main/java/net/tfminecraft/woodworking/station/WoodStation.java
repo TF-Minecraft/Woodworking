@@ -118,8 +118,7 @@ public class WoodStation {
                 if (material == null || e.getValue() == null) continue;
                 int amount = Math.max(0, e.getValue());
                 depositedByMaterial.put(material, amount);
-                IntCounter bucket = types.get(material.getType());
-                if (bucket != null) bucket.increaseCurrent(amount);
+                types.computeIfAbsent(material.getType(), k -> new IntCounter()).increaseCurrent(amount);
             }
         }
         if (hitCounts != null) {
@@ -139,8 +138,7 @@ public class WoodStation {
             for (Map.Entry<CraftingHit, IntCounter> e : hits.entrySet()) {
                 HitType type = e.getKey().getType();
                 if (type == null) continue;
-                IntCounter bucket = hitTypes.get(type);
-                if (bucket != null) bucket.increaseCurrent(e.getValue().getCurrent());
+                hitTypes.computeIfAbsent(type, k -> new IntCounter()).increaseCurrent(e.getValue().getCurrent());
             }
         }
         if (savedDeposited != null) {
@@ -148,16 +146,15 @@ public class WoodStation {
         }
     }
 
+    /**
+     * Accepts any woodworking material, even one the recipe does not use or past the needed
+     * amount. Only {@link #canFinish()} decides whether the result is correct.
+     */
     public StationFeedback addMaterial(WoodMaterial material, ItemStack stack) {
         if (project == null) return StationFeedback.NO_PROJECT;
         if (material == null) return StationFeedback.WRONG_TYPE;
 
-        String type = material.getType();
-        IntCounter bucket = types.get(type);
-        if (bucket == null) return StationFeedback.WRONG_TYPE;
-        if (bucket.isEqual()) return StationFeedback.CAPACITY;
-
-        bucket.increaseCurrent(1);
+        types.computeIfAbsent(material.getType(), k -> new IntCounter()).increaseCurrent(1);
         depositedByMaterial.merge(material, 1, Integer::sum);
         if (stack != null) {
             ItemStack copy = stack.clone();
@@ -167,40 +164,14 @@ public class WoodStation {
         return StationFeedback.SUCCESS;
     }
 
+    /** Accepts any hit, in any order and amount, like {@link #addMaterial(WoodMaterial, ItemStack)}. */
     public StationFeedback hit(CraftingHit hit) {
         if (project == null) return StationFeedback.NO_PROJECT;
-        if (!checkItems()) return StationFeedback.LACKING_ITEMS;
         if (hit == null || hit.getType() == null) return StationFeedback.WRONG_TYPE;
-        if (!hitTypes.containsKey(hit.getType())) return StationFeedback.NONE;
-        if (hitTypes.get(hit.getType()).isEqual()) return StationFeedback.CAPACITY;
 
-        if (hits.containsKey(hit)) {
-            hits.get(hit).increaseCurrent(1);
-        } else {
-            IntCounter counter = new IntCounter();
-            counter.setCurrent(1);
-            hits.put(hit, counter);
-        }
-        hitTypes.get(hit.getType()).increaseCurrent(1);
+        hits.computeIfAbsent(hit, k -> new IntCounter()).increaseCurrent(1);
+        hitTypes.computeIfAbsent(hit.getType(), k -> new IntCounter()).increaseCurrent(1);
         return StationFeedback.SUCCESS;
-    }
-
-    /** True when every material-type bucket is exactly filled. */
-    public boolean checkItems() {
-        if (project == null) return false;
-        for (IntCounter c : types.values()) {
-            if (!c.isEqual()) return false;
-        }
-        return true;
-    }
-
-    /** True when every hit-type bucket is exactly filled. */
-    public boolean checkHits() {
-        if (project == null) return false;
-        for (IntCounter c : hitTypes.values()) {
-            if (!c.isEqual()) return false;
-        }
-        return true;
     }
 
     /** True when every required hit count matches and there are no extra leftover hits. */
@@ -228,11 +199,10 @@ public class WoodStation {
         return true;
     }
 
+    /** SUCCESS only when the deposited materials and the hits both match the project exactly. */
     public StationFeedback canFinish() {
         if (project == null) return StationFeedback.NO_PROJECT;
-        if (!checkItems()) return StationFeedback.LACKING_ITEMS;
-        if (!checkExactHits()) return StationFeedback.LACKING_HITS;
-        if (!checkExactRecipe()) return StationFeedback.RECIPE_MISMATCH;
+        if (!checkExactRecipe() || !checkExactHits()) return StationFeedback.RECIPE_MISMATCH;
         return StationFeedback.SUCCESS;
     }
 
