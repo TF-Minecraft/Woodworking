@@ -129,11 +129,13 @@ public final class StationStore {
         if (retained.contains(file.toPath().toAbsolutePath())) {
             try {
                 Files.move(file.toPath(), file.toPath().resolveSibling(file.getName() + ".rejected-" + java.util.UUID.randomUUID()));
-                retained.remove(file.toPath().toAbsolutePath());
             } catch (IOException ex) {
-                Log.warn("Failed to preserve rejected station " + file.getName() + ": " + ex.getMessage());
-                return;
+                if (!Files.notExists(file.toPath(), java.nio.file.LinkOption.NOFOLLOW_LINKS)) {
+                    Log.warn("Failed to preserve rejected station " + file.getName() + ": " + ex.getMessage());
+                    return;
+                }
             }
+            retained.remove(file.toPath().toAbsolutePath());
         }
         try (Writer writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
             GSON.toJson(data, writer);

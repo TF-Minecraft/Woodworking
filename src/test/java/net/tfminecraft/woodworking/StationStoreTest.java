@@ -181,6 +181,27 @@ class StationStoreTest extends TestSupport {
   }
 
   @Test
+  void administratorDeletedRejectedFileAllowsReplacementAndLaterSaves() throws Exception {
+    var loc = new Location(server.addSimpleWorld("world"), 1, 2, 3);
+    var station = new WoodStation(loc, project());
+    StationStore.folder().mkdirs();
+    var file = StationStore.fileFor(loc).toPath();
+    Files.writeString(file, "{broken");
+    assertTrue(StationStore.loadAll().isEmpty());
+
+    Files.delete(file);
+    StationStore.saveAll(List.of(station));
+    assertTrue(Files.isRegularFile(file));
+    StationStore.saveAll(List.of(station));
+    try (var files = Files.list(file.getParent())) {
+      assertEquals(List.of(file), files.toList());
+    }
+    assertEquals(1, StationStore.loadAll().size());
+    StationStore.delete(loc);
+    assertFalse(Files.exists(file));
+  }
+
+  @Test
   void failedQuarantineRetainsOriginalAndSuccessfulRetryWorks() throws Exception {
     var loc = new Location(server.addSimpleWorld("world"), 1, 2, 3);
     var s = new WoodStation(loc, project());
