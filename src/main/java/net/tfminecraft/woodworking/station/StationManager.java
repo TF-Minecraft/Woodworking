@@ -144,6 +144,7 @@ public class StationManager implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
+        if (e.getHand() != org.bukkit.inventory.EquipmentSlot.HAND) return;
         if (e.getClickedBlock() == null) return;
         Action action = e.getAction();
         if (action != Action.RIGHT_CLICK_BLOCK && action != Action.LEFT_CLICK_BLOCK) return;
@@ -281,27 +282,15 @@ public class StationManager implements Listener {
 
         e.setCancelled(true);
         markCooldown(p);
-        StationFeedback feedback = existing.addMaterial(material, hand);
-        switch (feedback) {
-            case SUCCESS:
-                consumeOne(p);
-                markDirty();
-                IntCounter bucket = existing.getTypes().get(material.getType());
-                String progress = bucket == null ? "" : bucket.getCurrent() + "/" + bucket.getNeeded();
-                p.sendTitle("§aAdded " + material.getName(), MaterialTypeLoader.display(material.getType()) + " §e" + progress, 5, 20, 5);
-                playWorkFx(existing.getLoc(), Material.OAK_LOG);
-                p.getWorld().playSound(existing.getLoc(), Sound.ITEM_AXE_WAX_OFF, 0.7f, 2f);
-                break;
-            case WRONG_TYPE:
-                p.sendMessage("§cThis item type is not needed for the project");
-                p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                break;
-            case NO_PROJECT:
-                p.sendMessage("§cThis bench has no project. Right-click the table to choose one.");
-                break;
-            default:
-                break;
-        }
+        existing.addMaterial(material, hand);
+        consumeOne(p);
+        markDirty();
+        IntCounter bucket = existing.getTypes().get(material.getType());
+        String progress = bucket.getCurrent() + "/" + bucket.getNeeded();
+        p.sendTitle("§aAdded " + material.getName(), MaterialTypeLoader.display(material.getType()) + " §e" + progress, 5, 20, 5);
+        playWorkFx(existing.getLoc(), Material.OAK_LOG);
+        p.getWorld().playSound(existing.getLoc(), Sound.ITEM_AXE_WAX_OFF, 0.7f, 2f);
+
     }
 
     // Keep the existing legacy text representation, formatting, and exact-string comparisons.
@@ -350,27 +339,21 @@ public class StationManager implements Listener {
         e.setCancelled(true);
         markCooldown(p);
         StationFeedback feedback = station.hit(hit);
-        switch (feedback) {
-            case SUCCESS:
+        if (feedback == StationFeedback.SUCCESS) {
                 markDirty();
                 IntCounter typeCounter = station.getHitTypes().get(hit.getType());
                 HitType type = hit.getType();
-                String typeName = type == null ? "Hits" : type.getName();
-                String progress = typeCounter == null ? "" : typeCounter.getCurrent() + "/" + typeCounter.getNeeded();
+                String typeName = type.getName();
+                String progress = typeCounter.getCurrent() + "/" + typeCounter.getNeeded();
                 p.sendTitle("§a+1 " + hit.getName(), typeName + " §e" + progress, 5, 20, 5);
                 playWorkFx(station.getLoc(), Material.OAK_PLANKS);
                 p.getWorld().playSound(station.getLoc(), Sound.BLOCK_ANVIL_USE, 0.4f, 1f);
-                break;
-            case LACKING_ITEMS:
+        } else if (feedback == StationFeedback.LACKING_ITEMS) {
                 p.sendMessage("§cYou have to add all the items before working");
                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                break;
-            case WRONG_TYPE:
+        } else {
                 p.sendMessage("§cThis item cannot be used for woodworking hits");
                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
-                break;
-            default:
-                break;
         }
     }
 
@@ -393,7 +376,7 @@ public class StationManager implements Listener {
         WoodProject project = station.getProject();
         String path = project.getItem();
         ItemStack output = TLibs.getItemAPI().getCreator().getItemFromPath(path);
-        if (output == null || (path != null && path.toLowerCase().startsWith("ia.") && output.getType() == Material.DIRT)) {
+        if (output == null || output.getType().isAir() || (path != null && path.toLowerCase().startsWith("ia.") && output.getType() == Material.DIRT)) {
             Log.warn("Could not build output for project " + project.getId() + " (" + path + "). Station left intact.");
             p.sendMessage("§cCould not create that item. Contact an administrator.");
             p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
@@ -439,7 +422,6 @@ public class StationManager implements Listener {
 
     /** Resolves the MMOItems TYPE.ID of a held tool to its hit, or null when it is not a hit tool. */
     private CraftingHit matchHit(ItemStack item) {
-        if (item == null || item.getType().isAir()) return null;
         NBTItem nbt = NBTItem.get(item);
         if (!nbt.hasType()) return null;
         return HitLoader.getByTool(nbt.getType() + "." + nbt.getString("MMOITEMS_ITEM_ID"));
@@ -463,7 +445,6 @@ public class StationManager implements Listener {
 
     private void consumeOne(Player p) {
         ItemStack hand = p.getInventory().getItemInMainHand();
-        if (hand == null || hand.getType().isAir()) return;
         hand.setAmount(hand.getAmount() - 1);
     }
 

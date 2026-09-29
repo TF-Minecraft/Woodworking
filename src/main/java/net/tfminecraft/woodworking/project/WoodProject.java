@@ -60,7 +60,6 @@ public class WoodProject {
 
     /** Splits "whittle.3" into id and amount. Returns null when malformed. */
     private static String[] split(String entry) {
-        if (entry == null) return null;
         int i = entry.lastIndexOf('.');
         if (i <= 0 || i == entry.length() - 1) return null;
         String amount = entry.substring(i + 1);

@@ -46,6 +46,8 @@ public final class StationStore {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
+    private static final Set<java.nio.file.Path> retained = new HashSet<>();
+
     private StationStore() {
     }
 
@@ -66,6 +68,7 @@ public final class StationStore {
     public static void delete(Location loc) {
         if (loc == null) return;
         File file = fileFor(loc);
+        if (retained.contains(file.toPath().toAbsolutePath())) return;
         if (file.exists() && !file.delete()) {
             Log.warn("Failed to delete station file " + file.getName());
         }
@@ -90,6 +93,7 @@ public final class StationStore {
         if (files == null) return;
         for (File file : files) {
             if (!file.isFile() || !file.getName().endsWith(".json")) continue;
+            if (retained.contains(file.toPath().toAbsolutePath())) continue;
             if (!keep.contains(file.getName()) && !file.delete()) {
                 Log.warn("Failed to delete leftover station file " + file.getName());
             }
@@ -108,7 +112,12 @@ public final class StationStore {
         for (File file : files) {
             if (!file.isFile() || !file.getName().endsWith(".json")) continue;
             WoodStation station = loadFile(file);
-            if (station != null) out.add(station);
+            if (station != null) {
+                retained.remove(file.toPath().toAbsolutePath());
+                out.add(station);
+            } else {
+                retained.add(file.toPath().toAbsolutePath());
+            }
         }
         return out;
     }
@@ -117,6 +126,17 @@ public final class StationStore {
         StationData data = toData(station);
         if (data == null) return;
         file.getParentFile().mkdirs();
+        if (retained.contains(file.toPath().toAbsolutePath())) {
+            try {
+                Files.move(file.toPath(), file.toPath().resolveSibling(file.getName() + ".rejected-" + java.util.UUID.randomUUID()));
+            } catch (IOException ex) {
+                if (!Files.notExists(file.toPath(), java.nio.file.LinkOption.NOFOLLOW_LINKS)) {
+                    Log.warn("Failed to preserve rejected station " + file.getName() + ": " + ex.getMessage());
+                    return;
+                }
+            }
+            retained.remove(file.toPath().toAbsolutePath());
+        }
         try (Writer writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
             GSON.toJson(data, writer);
         } catch (IOException ex) {
@@ -125,32 +145,33 @@ public final class StationStore {
     }
 
     private static WoodStation loadFile(File file) {
+        StationData data;
         try (Reader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
-            StationData data = GSON.fromJson(reader, StationData.class);
-            if (data == null || data.world == null || data.project == null) {
-                Log.warn("Invalid station file " + file.getName() + ", leaving it on disk.");
-                return null;
-            }
-            World world = Bukkit.getWorld(data.world);
-            if (world == null) {
-                Log.warn("Station file " + file.getName() + " world '" + data.world + "' is missing, leaving it on disk.");
-                return null;
-            }
-            WoodProject project = ProjectLoader.getByString(data.project);
-            if (project == null) {
-                Log.warn("Station file " + file.getName() + " unknown project '" + data.project
-                        + "', leaving it on disk.");
-                return null;
-            }
-            Location loc = StationManager.key(new Location(world, data.x, data.y, data.z));
-            WoodStation station = new WoodStation(loc);
-            station.setProject(project);
-            station.applySavedProgress(data.materials, data.hits, decodeItems(data.deposited));
-            return station;
-        } catch (IOException ex) {
+            data = GSON.fromJson(reader, StationData.class);
+        } catch (IOException | com.google.gson.JsonParseException ex) {
             Log.warn("Failed to read station file " + file.getName() + ": " + ex.getMessage());
             return null;
         }
+        if (data == null || data.world == null || data.project == null) {
+            Log.warn("Invalid station file " + file.getName() + ", leaving it on disk.");
+            return null;
+        }
+        World world = Bukkit.getWorld(data.world);
+        if (world == null) {
+            Log.warn("Station file " + file.getName() + " world '" + data.world + "' is missing, leaving it on disk.");
+            return null;
+        }
+        WoodProject project = ProjectLoader.getByString(data.project);
+        if (project == null) {
+            Log.warn("Station file " + file.getName() + " unknown project '" + data.project
+                    + "', leaving it on disk.");
+            return null;
+        }
+        Location loc = StationManager.key(new Location(world, data.x, data.y, data.z));
+        WoodStation station = new WoodStation(loc);
+        station.setProject(project);
+        station.applySavedProgress(data.materials, data.hits, decodeItems(data.deposited));
+        return station;
     }
 
     private static StationData toData(WoodStation station) {

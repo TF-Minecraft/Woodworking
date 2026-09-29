@@ -23,6 +23,12 @@ Each workbench holds a project while its materials and required actions are comp
 
 Technical documentation is maintained in [TF-Minecraft/Docs](https://github.com/TF-Minecraft/Docs).
 
+## Tests and coverage
+
+Run `mvn -B --no-transfer-progress clean verify` with Java 21 after installing the pinned plugin dependencies used by CI. JUnit 5, Mockito and MockBukkit exercise project definitions and progress, YAML loaders, GUI pagination, permission checks, bench events, plugin lifecycle, and persisted station recovery.
+
+JaCoCo enforces **100% line, branch and instruction coverage** across all production classes, without exclusions. HTML/XML reports appear in `target/site/jacoco/` and are uploaded by build and release CI. External plugin APIs are mocked; a live Minecraft integration run remains useful for server-specific behavior.
+
 ## License
 
 Copyright (c) 2026 TF-Minecraft contributors.

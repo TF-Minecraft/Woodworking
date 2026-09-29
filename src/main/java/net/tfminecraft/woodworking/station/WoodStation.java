@@ -201,7 +201,7 @@ public class WoodStation {
         if (project == null) return false;
         for (CraftingHit required : project.getHits().keySet()) {
             IntCounter c = hits.get(required);
-            if (c == null || !c.isEqual()) return false;
+            if (!c.isEqual()) return false;
         }
         for (Map.Entry<CraftingHit, IntCounter> e : hits.entrySet()) {
             if (!e.getValue().isEqual()) return false;
@@ -245,7 +245,7 @@ public class WoodStation {
             double d = hits.get(h).getPercentage();
             if (d >= 200.0) continue;
             if (d <= 100.0) amount = amount + d;
-            if (d > 100.0 && d <= 200.0) amount = amount + (200.0 - d);
+            if (d > 100.0) amount = amount + (200.0 - d);
         }
         if (counter == 0) return 100.0;
         return Math.round(amount / counter);
