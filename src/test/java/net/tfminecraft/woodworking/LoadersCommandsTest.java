@@ -165,6 +165,41 @@ class LoadersCommandsTest extends TestSupport {
   }
 
   @Test
+  void usePermissionDoesNotAuthorizeAdminProjectSelection() throws Exception {
+    var command = mock(Command.class);
+    when(command.getName()).thenReturn("woodworking");
+    var player = mock(Player.class);
+    Cache.permission = "woodworking.use";
+    when(player.hasPermission(Cache.permission)).thenReturn(true);
+    when(player.hasPermission(Permissions.ADMIN)).thenReturn(false);
+    assertTrue(Permissions.canUse(player));
+
+    var project = new WoodProject("chair", "furniture", config("item: v.chest"));
+    ProjectLoader.get().put("chair", project);
+    var location = new Location(server.addSimpleWorld("world"), 1, 2, 3);
+    var station = new WoodStation(location);
+    var block = mock(org.bukkit.block.Block.class);
+    when(block.getLocation()).thenReturn(location);
+    when(player.getTargetBlockExact(6)).thenReturn(block);
+    var manager = mock(StationManager.class);
+    when(plugin.getStations()).thenReturn(manager);
+    when(manager.isWoodworkingStation(block)).thenReturn(true);
+    when(manager.getOrCreate(location)).thenReturn(station);
+
+    var commands = new CommandManager();
+    assertTrue(commands.onCommand(player, command, "w", new String[] {"select", "chair"}));
+    verify(player).sendMessage("§cYou do not have access to this command!");
+    assertFalse(station.hasProject());
+    verify(manager, never()).getOrCreate(any());
+    verify(manager, never()).markDirty();
+
+    when(player.hasPermission(Permissions.ADMIN)).thenReturn(true);
+    assertTrue(commands.onCommand(player, command, "w", new String[] {"select", "chair"}));
+    assertTrue(station.hasProject());
+    verify(manager).markDirty();
+  }
+
+  @Test
   void lifecycleLoadsReloadsAndFlushes() throws Exception {
     for (String name : List.of("TLibs", "MMOItems", "MythicLib", "ItemsAdder"))
       MockBukkit.createMockPlugin(name);
