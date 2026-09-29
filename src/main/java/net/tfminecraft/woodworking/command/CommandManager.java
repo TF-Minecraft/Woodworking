@@ -50,7 +50,6 @@ public class CommandManager implements CommandExecutor, TabCompleter {
                 sender.sendMessage("§cOnly players can select a project on a bench.");
                 return true;
             }
-            if (!Permissions.requireUse(p)) return true;
             if (args.length < 2) {
                 p.sendMessage("§cUsage: /woodworking select <projectId>");
                 return true;
