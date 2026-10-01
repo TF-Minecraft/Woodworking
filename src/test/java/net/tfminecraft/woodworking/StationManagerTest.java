@@ -8,6 +8,7 @@ import io.lumine.mythic.lib.api.item.NBTItem;
 import java.util.*;
 import net.tfminecraft.tlibs.TLibs;
 import net.tfminecraft.tlibs.objects.api.BlockAPI;
+import net.tfminecraft.woodworking.command.Permissions;
 import net.tfminecraft.woodworking.cache.Cache;
 import net.tfminecraft.woodworking.database.*;
 import net.tfminecraft.woodworking.gui.InventoryManager;
@@ -173,7 +174,7 @@ class StationManagerTest extends TestSupport {
     e = event(Action.RIGHT_CLICK_BLOCK);
     manager.onInteract(e);
     manager.onInteract(e);
-    verify(p).sendMessage(contains("permission"));
+    verify(p).sendMessage(Permissions.NOT_SKILLED);
     Cache.permission = null;
     manager.onInteract(e);
     verify(p, never()).openInventory(any(Inventory.class));
@@ -218,7 +219,7 @@ class StationManagerTest extends TestSupport {
     HitLoader.get().put("none", untyped);
     when(nbt.getString("MMOITEMS_ITEM_ID")).thenReturn("BAD");
     click(Action.LEFT_CLICK_BLOCK);
-    verify(p).sendMessage(contains("cannot be used"));
+    verify(p).sendMessage(contains("cannot work the piece"));
     var empty = new WoodStation(loc, project);
     manager.put(empty);
     when(nbt.getString("MMOITEMS_ITEM_ID")).thenReturn("KNIFE");
