@@ -9,6 +9,9 @@ public final class Permissions {
 
     public static final String ADMIN = "woodworking.admin";
 
+    /** Shown when a player without the woodworking profession tries to use a bench. */
+    public static final String NOT_SKILLED = "§cYou are not skilled enough to work wood.";
+
     private Permissions() {
     }
 
@@ -31,7 +34,7 @@ public final class Permissions {
 
     public static boolean requireUse(Player player) {
         if (canUse(player)) return true;
-        player.sendMessage("§cYou do not have permission to use woodworking.");
+        player.sendMessage(NOT_SKILLED);
         return false;
     }
 }

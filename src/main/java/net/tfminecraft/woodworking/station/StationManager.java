@@ -153,7 +153,7 @@ public class StationManager implements Listener {
         if (!Permissions.canUse(player)) {
             e.setCancelled(true);
             if (!onCooldown(player)) {
-                player.sendMessage("§cYou do not have permission to use woodworking.");
+                player.sendMessage(Permissions.NOT_SKILLED);
                 markCooldown(player);
             }
             return;
@@ -352,7 +352,7 @@ public class StationManager implements Listener {
                 p.sendMessage("§cYou have to add all the items before working");
                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
         } else {
-                p.sendMessage("§cThis item cannot be used for woodworking hits");
+                p.sendMessage("§cYou cannot work the piece with that tool");
                 p.playSound(p.getLocation(), Sound.ENTITY_VILLAGER_NO, 1f, 1f);
         }
     }
