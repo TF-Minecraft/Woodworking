@@ -15,7 +15,7 @@ Woodworking turns furniture production into a practical workshop activity. Playe
 
 ## From materials to furniture
 
-Each workbench holds a project while its materials and required actions are completed. The bench accepts any woodworking material and any tool action, so players have to know the design. Tool work starts once every material group has at least the amount the project lists, and finishing waits until every hit group has too. From there, finishing produces the furniture only when the materials, their amounts and the tool actions all match the recipe exactly. Any other finish ruins the project and the deposited materials are lost. Players can inspect progress with the branding tool or deliberately cancel a project, with a full refund, when changing plans.
+Players need to know their chosen design: the bench accepts materials and tool actions even when they do not match it. A completed attempt produces furniture only when the recipe is correct; a wrong mix ruins the project. Cancelling unfinished work returns its materials. See the project guide for the full workbench rules.
 
 ## Documentation
 
@@ -27,7 +27,7 @@ Technical documentation is maintained in [TF-Minecraft/Docs](https://github.com/
 
 Run `mvn -B --no-transfer-progress clean verify` with Java 21 after installing the pinned plugin dependencies used by CI. JUnit 5, Mockito and MockBukkit exercise project definitions and progress, YAML loaders, GUI pagination, permission checks, bench events, plugin lifecycle, and persisted station recovery.
 
-JaCoCo enforces **100% line, branch and instruction coverage** across all production classes, without exclusions. HTML/XML reports appear in `target/site/jacoco/` and are uploaded by build and release CI. External plugin APIs are mocked; a live Minecraft integration run remains useful for server-specific behavior.
+JaCoCo enforces **100% line, branch and instruction coverage** across all production classes, without exclusions. HTML/XML reports appear in `target/site/jacoco/` and are uploaded by build and release CI. Surefire test results appear in `target/surefire-reports/` and are uploaded by build CI. External plugin APIs are mocked; a live Minecraft integration run remains useful for server-specific behavior.
 
 ## License
 
