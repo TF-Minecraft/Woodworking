@@ -115,6 +115,7 @@ class LoadersCommandsTest extends TestSupport {
     assertFalse(c.onCommand(sender, cmd, "w", new String[0]));
     assertNull(c.onTabComplete(sender, cmd, "w", new String[0]));
     when(cmd.getName()).thenReturn("woodworking");
+    assertTrue(c.onTabComplete(sender, cmd, "w", new String[] {""}).isEmpty());
     c.onCommand(sender, cmd, "w", new String[0]);
     c.onCommand(sender, cmd, "w", new String[] {"other"});
     c.onCommand(sender, cmd, "w", new String[] {"reload"});
@@ -154,12 +155,18 @@ class LoadersCommandsTest extends TestSupport {
     when(p.hasPermission(Cache.permission)).thenReturn(true);
     assertTrue(Permissions.requireUse(p));
     assertEquals(List.of("reload"), c.onTabComplete(sender, cmd, "w", new String[] {"re"}));
+    assertEquals(List.of("reload"), c.onTabComplete(sender, cmd, "w", new String[] {""}));
     assertTrue(c.onTabComplete(p, cmd, "w", new String[] {"select", ""}).isEmpty());
+    assertTrue(c.onTabComplete(p, cmd, "w", new String[] {"SE"}).isEmpty());
+    assertTrue(c.onTabComplete(sender, cmd, "w", new String[] {"select", ""}).isEmpty());
+    when(p.hasPermission(Permissions.ADMIN)).thenReturn(true);
+    assertEquals(List.of("reload", "select"), c.onTabComplete(p, cmd, "w", new String[] {""}));
+    assertEquals(List.of("select"), c.onTabComplete(p, cmd, "w", new String[] {"SE"}));
     assertEquals(
-        List.of("chair"), c.onTabComplete(sender, cmd, "w", new String[] {"select", "ch"}));
+        List.of("chair"), c.onTabComplete(p, cmd, "w", new String[] {"select", "ch"}));
     for (int i = 0; i < 50; i++) ProjectLoader.get().put("x" + i, project);
-    assertEquals(40, c.onTabComplete(sender, cmd, "w", new String[] {"select", ""}).size());
-    assertTrue(c.onTabComplete(sender, cmd, "w", new String[] {"select", "nope"}).isEmpty());
+    assertEquals(40, c.onTabComplete(p, cmd, "w", new String[] {"select", ""}).size());
+    assertTrue(c.onTabComplete(p, cmd, "w", new String[] {"select", "nope"}).isEmpty());
     assertTrue(c.onTabComplete(sender, cmd, "w", new String[] {"other", ""}).isEmpty());
     assertTrue(c.onTabComplete(sender, cmd, "w", new String[0]).isEmpty());
   }
