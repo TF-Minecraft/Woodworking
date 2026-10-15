@@ -92,18 +92,20 @@ public class CommandManager implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         if (!cmd.getName().equalsIgnoreCase(cmd1)) return null;
+        if (!Permissions.isAdmin(sender)) return List.of();
 
         if (args.length == 1) {
             String prefix = args[0].toLowerCase(Locale.ROOT);
             List<String> out = new ArrayList<>();
             for (String s : SUB_COMMANDS) {
+                if (s.equals("select") && !(sender instanceof Player)) continue;
                 if (s.startsWith(prefix)) out.add(s);
             }
             return out;
         }
 
         if (args.length == 2 && args[0].equalsIgnoreCase("select")) {
-            if (!Permissions.isAdmin(sender)) return new ArrayList<>();
+            if (!(sender instanceof Player)) return List.of();
             String prefix = args[1].toLowerCase(Locale.ROOT);
             List<String> out = new ArrayList<>();
             for (String id : ProjectLoader.get().keySet()) {
