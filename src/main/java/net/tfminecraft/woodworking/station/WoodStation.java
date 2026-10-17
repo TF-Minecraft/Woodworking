@@ -255,6 +255,39 @@ public class WoodStation {
         return QualityLoader.getByAmount(calculatePercentage());
     }
 
+    /**
+     * Recipe share shown on finishing, as goldsmithing shows it. Missing, wrong and extra
+     * materials all count against it, so only the exact recipe reads 100.
+     */
+    public int getRecipePercent() {
+        if (project == null) return 0;
+        Map<WoodMaterial, Integer> recipe = project.getRecipe();
+        int needed = 0;
+        double sum = 0;
+        for (Map.Entry<WoodMaterial, Integer> e : recipe.entrySet()) {
+            int required = e.getValue();
+            needed += required;
+            sum += Math.min(depositedByMaterial.getOrDefault(e.getKey(), 0), required) / (double) required;
+        }
+        double percent = recipe.isEmpty() ? 0 : sum / recipe.size() * 100.0;
+        int total = 0;
+        for (int amount : depositedByMaterial.values()) total += amount;
+        // Materials beyond the recipe would leave the share at 100, so they dilute it.
+        if (total > needed) percent = Math.min(percent, Math.floor(100.0 * needed / total));
+        return shownPercent(percent, checkExactRecipe());
+    }
+
+    /** Hits share shown on finishing. Hits with tools the piece does not need count against it. */
+    public int getHitPercent() {
+        return shownPercent(calculatePercentage(), checkExactHits());
+    }
+
+    /** Only an exact match reads 100, so a near miss that rounds up shows 99. */
+    private static int shownPercent(double percent, boolean exact) {
+        if (exact) return 100;
+        return (int) Math.min(99, Math.round(percent));
+    }
+
     /** Clears the project and returns deposited items for the caller to refund. */
     public List<ItemStack> cancel() {
         List<ItemStack> refund = new ArrayList<>(deposited);

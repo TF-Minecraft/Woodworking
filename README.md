@@ -15,7 +15,7 @@ Woodworking turns furniture production into a practical workshop activity. Playe
 
 ## From materials to furniture
 
-Players need to know their chosen design: the bench accepts materials and tool actions even when they do not match it. A completed attempt produces furniture only when the recipe is correct; a wrong mix ruins the project. Cancelling unfinished work returns its materials. See the project guide for the full workbench rules.
+Players need to know their chosen design: the bench accepts materials and tool actions even when they do not match it. A completed attempt produces furniture only when the recipe is correct; a wrong mix ruins the project. Either way, finishing shows the Recipe, Hits and Total percents, like the other crafting stations. Cancelling unfinished work returns its materials. See the project guide for the full workbench rules.
 
 ## Documentation
 

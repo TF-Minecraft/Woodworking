@@ -363,11 +363,27 @@ public class StationManager implements Listener {
             IntCounter c = e.getValue();
             p.sendMessage(MaterialTypeLoader.display(e.getKey()) + "§7: §e" + c.getCurrent() + "/" + c.getNeeded());
         }
-        for (Map.Entry<HitType, IntCounter> e : station.getHitTypes().entrySet()) {
-            IntCounter c = e.getValue();
-            p.sendMessage(e.getKey().getName() + "§7: §e" + c.getCurrent() + "/" + c.getNeeded());
+        // Like the other crafting benches: each tool with the hits done, never what it needs.
+        p.sendMessage("§7Hits done:");
+        int total = 0;
+        for (CraftingHit hit : HitLoader.get().values()) {
+            IntCounter c = station.getHits().get(hit);
+            int done = c == null ? 0 : c.getCurrent();
+            total += done;
+            p.sendMessage(hit.getName() + "§7: §e" + done);
         }
+        p.sendMessage("§7Total: §e" + total);
+        p.sendMessage("§7Left-click branding to finish");
         p.sendMessage("§cSHIFT + LEFT CLICK with the branding tool to cancel the project!");
+    }
+
+    /** The finish percents, as goldsmithing shows them, so a ruined piece still tells how close it came. */
+    private void sendPercents(Player p, WoodStation station) {
+        int recipe = station.getRecipePercent();
+        int hits = station.getHitPercent();
+        p.sendMessage("§7Recipe: §e" + recipe + "%");
+        p.sendMessage("§7Hits: §e" + hits + "%");
+        p.sendMessage("§7Total: §e" + Math.min(recipe, hits) + "%");
     }
 
     // Keep the existing legacy text representation, formatting, and exact-string comparisons.
@@ -393,18 +409,21 @@ public class StationManager implements Listener {
         Quality q = station.getQuality();
         String qName = q == null ? "" : q.getName();
         p.sendTitle("§aYou made a " + project.getName(), qName, 5, 40, 10);
+        sendPercents(p, station);
+        if (q != null) p.sendMessage("§7Quality: " + qName);
         station.cancel();
         remove(station.getLoc());
     }
 
-    /** A wrong recipe or hit mix destroys the work. Deposited materials are not refunded. */
+    /** A wrong recipe or hit mix destroys the work. Deposited materials are not refunded; only the percents are shown. */
     // Keep the existing legacy text representation, formatting, and exact-string comparisons.
     @SuppressWarnings("deprecation")
     private void failCraft(Player p, WoodStation station) {
         String name = station.getProject().getName();
+        p.sendTitle("§cThe craft failed", "§7" + name + " §7was ruined and the materials were lost", 5, 40, 10);
+        sendPercents(p, station);
         station.cancel();
         remove(station.getLoc());
-        p.sendTitle("§cThe craft failed", "§7" + name + " §7was ruined and the materials were lost", 5, 40, 10);
         Location loc = station.getLoc().clone().add(0.5, 1, 0.5);
         if (loc.getWorld() != null) {
             loc.getWorld().playSound(loc, Sound.ENTITY_ITEM_BREAK, 1f, 0.8f);
