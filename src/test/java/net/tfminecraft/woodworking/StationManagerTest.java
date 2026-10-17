@@ -228,6 +228,26 @@ class StationManagerTest extends TestSupport {
   }
 
   @Test
+  void brandingStatusListsEveryHitDoneWithoutTargets() throws Exception {
+    var saw = new CraftingHit("saw", config("tool: TOOL.SAW\ntype: cut"));
+    HitLoader.get().put("saw", saw);
+    var s = station();
+    s.addMaterial(oak, item(Material.OAK_LOG));
+    s.hit(cut);
+    hand(item(Material.STICK), true);
+    click(Action.RIGHT_CLICK_BLOCK);
+    var order = inOrder(p);
+    order.verify(p).sendMessage("§7Project: chair");
+    order.verify(p).sendMessage("§7Hits done:");
+    order.verify(p).sendMessage("cut§7: §e1");
+    order.verify(p).sendMessage("saw§7: §e0");
+    order.verify(p).sendMessage("§7Total: §e1");
+    order.verify(p).sendMessage("§7Left-click branding to finish");
+    order.verify(p).sendMessage(contains("to cancel the project"));
+    verify(p, never()).sendMessage("cut§7: §e1/1");
+  }
+
+  @Test
   void brandingFinishesCancelsOrFailsWorkAndValidatesOutput() throws Exception {
     hand(item(Material.STICK), true);
     click(Action.LEFT_CLICK_BLOCK);
@@ -247,12 +267,19 @@ class StationManagerTest extends TestSupport {
     assertNull(manager.get(loc));
     verify(world)
         .dropItemNaturally(any(Location.class), argThat(x -> x.getType() == Material.CHEST));
+    verify(p).sendMessage("§7Hits: §e100%");
+    verify(p).sendMessage("§7Total: §e100%");
+    verify(p, never()).sendMessage(startsWith("§7Quality: "));
     s = station();
     s.addMaterial(oak, item(Material.OAK_LOG));
     s.hit(cut);
     s.hit(cut);
     click(Action.LEFT_CLICK_BLOCK);
     assertNull(manager.get(loc));
+    verify(p).sendTitle(eq("§cThe craft failed"), contains("was ruined"), eq(5), eq(40), eq(10));
+    verify(p, times(2)).sendMessage("§7Recipe: §e100%");
+    verify(p).sendMessage("§7Hits: §e0%");
+    verify(p).sendMessage("§7Total: §e0%");
     s = station();
     s.addMaterial(oak, item(Material.OAK_LOG));
     when(p.isSneaking()).thenReturn(true);
@@ -426,6 +453,7 @@ class StationManagerTest extends TestSupport {
       if ("ia.bad".equals(path)) assertTrue(station.hasProject());
       else assertFalse(station.hasProject());
     }
+    verify(p, times(3)).sendMessage("§7Quality: Good");
     var detached = new WoodStation(new Location(null, 1, 2, 3), project);
     invoke(manager, "failCraft", method, p, detached);
     assertFalse(detached.hasProject());

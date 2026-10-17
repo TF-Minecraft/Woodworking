@@ -166,6 +166,48 @@ class DomainTest {
   }
 
   @Test
+  void finishPercentsReadOneHundredOnlyForExactWork() throws Exception {
+    var none = new WoodStation(new Location(null, 0, 0, 0));
+    assertEquals(0, none.getRecipePercent());
+    var s = new WoodStation(new Location(null, 0, 0, 0), project);
+    assertEquals(0, s.getRecipePercent());
+    s.addMaterial(wood, null);
+    assertEquals(50, s.getRecipePercent());
+    s.addMaterial(wood, null);
+    assertEquals(100, s.getRecipePercent());
+    s.addMaterial(extra, null);
+    assertEquals(66, s.getRecipePercent());
+    s.applySavedProgress(Map.of("birch", 2), Map.of("whittle", 1), null);
+    assertEquals(0, s.getRecipePercent());
+    assertEquals(50, s.getHitPercent());
+    s.applySavedProgress(Map.of("oak", 2), Map.of("whittle", 2), null);
+    assertEquals(100, s.getHitPercent());
+    s.hit(hit);
+    assertEquals(50, s.getHitPercent());
+    var otherType = new HitType("hammer", yaml(""));
+    HitTypeLoader.get().put("hammer", otherType);
+    var other = new CraftingHit("hammer", yaml("type: hammer"));
+    HitLoader.get().put("hammer", other);
+    s.applySavedProgress(Map.of("oak", 2), Map.of("whittle", 2, "hammer", 1), null);
+    assertEquals(50, s.getHitPercent());
+
+    var big =
+        new WoodProject("big", "furniture", yaml("hits: [whittle.200]\nrecipe: [oak.200]"));
+    var near = new WoodStation(new Location(null, 0, 0, 0), big);
+    near.applySavedProgress(Map.of("oak", 199), Map.of("whittle", 199), null);
+    assertEquals(99, near.getRecipePercent());
+    assertEquals(99, near.getHitPercent());
+
+    var bare =
+        new WoodStation(
+            new Location(null, 0, 0, 0), new WoodProject("bare", "furniture", yaml("")));
+    assertEquals(100, bare.getRecipePercent());
+    assertEquals(100, bare.getHitPercent());
+    bare.addMaterial(wood, null);
+    assertEquals(0, bare.getRecipePercent());
+  }
+
+  @Test
   void wrongIngredientsAndUnexpectedHitsCountButFailExactRecipe() throws Exception {
     var s = new WoodStation(new Location(null, 0, 0, 0), project);
     s.addMaterial(extra, null);
